@@ -30,7 +30,7 @@ class TextFormatter {
 
         System.out.println( "\n Block alligned");
         System.out.println("123456789012345678901234567890123456789012345678901234567890");
-        formatter.format_block_alligned(60);
+        formatter.format_block_alligned(30);
         formatter.print();
     }
 
@@ -89,7 +89,7 @@ class TextFormatter {
                 stopIndex = input.length();
             }
             
-            int numBlanks = maxLineLength / 2 - (( stopIndex - curIndex ) / 2);
+            int numBlanks = maxLineLength / 2 - ( stopIndex - curIndex ) / 2;
             StringBuffer curStr = new StringBuffer();
             while( numBlanks > 0 ) {
                 curStr.append(' ');
