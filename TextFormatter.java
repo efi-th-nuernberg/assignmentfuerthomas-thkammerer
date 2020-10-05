@@ -10,27 +10,27 @@ class TextFormatter {
       + "justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est "
       + "Lorem ipsum dolor sit amet.";
 
-    public static void main(String[] args) {
+    public static void main( String[] args ) {
         TextFormatter formatter = new TextFormatter( testText );
 
-        System.out.println( "\n Left alligned");
+        System.out.println( "\n--- Left alligned");
         System.out.println("123456789012345678901234567890123456789012345678901234567890");
-        formatter.format_left_alligned(30);
+        formatter.format_left_alligned( 30 );
         formatter.print();
 
-        System.out.println( "\n Right alligned");
+        System.out.println( "\n--- Right alligned");
         System.out.println("123456789012345678901234567890123456789012345678901234567890");
-        formatter.format_right_alligned(30);
+        formatter.format_right_alligned( 30 );
         formatter.print();
 
-        System.out.println( "\n Center alligned");
+        System.out.println( "\n--- Center alligned");
         System.out.println("123456789012345678901234567890123456789012345678901234567890");
-        formatter.format_center_alligned(30);
+        formatter.format_center_alligned( 30 );
         formatter.print();
 
-        System.out.println( "\n Block alligned");
+        System.out.println( "\n--- Block alligned");
         System.out.println("123456789012345678901234567890123456789012345678901234567890");
-        formatter.format_block_alligned(30);
+        formatter.format_block_alligned( 30 );
         formatter.print();
     }
 
@@ -43,14 +43,14 @@ class TextFormatter {
     public void format_left_alligned( int maxLineLength ) {
         output.clear();
         int curIndex = 0;
-        while (curIndex < input.length()) {
+        while ( curIndex < input.length() ) {
             String curLine = getNextLine(curIndex, maxLineLength);
-            int stopIndex = curIndex + curLine.lastIndexOf(' ');
+            int stopIndex = curIndex + curLine.lastIndexOf( ' ' );
 
-            if (isLastLine(curIndex, maxLineLength)) {
+            if ( isLastLine(curIndex, maxLineLength ) ) {
                 stopIndex = input.length();
             }
-            output.add( new StringBuffer( input.substring(curIndex, stopIndex ) ) );
+            output.add( new StringBuffer( input.substring( curIndex, stopIndex ) ) );
             curIndex = stopIndex + 1;
         }
     }
@@ -58,21 +58,21 @@ class TextFormatter {
     public void format_right_alligned( int maxLineLength ) {        
         output.clear();
         int curIndex = 0;
-        while (curIndex < input.length()) {
+        while ( curIndex < input.length() ) {
             String curLine = getNextLine(curIndex, maxLineLength);
             int stopIndex = curIndex + curLine.lastIndexOf(' ');
 
-            if (isLastLine(curIndex, maxLineLength)) {
+            if ( isLastLine( curIndex, maxLineLength ) ) {
                 stopIndex = input.length();
             }
             
             int numBlanks = maxLineLength - ( stopIndex - curIndex );
             StringBuffer curStr = new StringBuffer();
             while( numBlanks > 0 ) {
-                curStr.append(' ');
+                curStr.append( ' ' );
                 numBlanks--;
             }
-            curStr.append( input.substring(curIndex, stopIndex) );
+            curStr.append( input.substring( curIndex, stopIndex ) );
             output.add( curStr );
             curIndex = stopIndex + 1;
         }
@@ -81,11 +81,11 @@ class TextFormatter {
     public void format_center_alligned( int maxLineLength ) {        
         output.clear();
         int curIndex = 0;
-        while (curIndex < input.length()) {
-            String curLine = getNextLine(curIndex, maxLineLength);
-            int stopIndex = curIndex + curLine.lastIndexOf(' ');
+        while ( curIndex < input.length() ) {
+            String curLine = getNextLine( curIndex, maxLineLength );
+            int stopIndex = curIndex + curLine.lastIndexOf( ' ' );
 
-            if (isLastLine(curIndex, maxLineLength)) {
+            if ( isLastLine( curIndex, maxLineLength ) ) {
                 stopIndex = input.length();
             }
             
@@ -95,7 +95,7 @@ class TextFormatter {
                 curStr.append(' ');
                 numBlanks--;
             }
-            curStr.append( input.substring(curIndex, stopIndex) );
+            curStr.append( input.substring( curIndex, stopIndex ) );
             output.add( curStr );
             curIndex = stopIndex + 1;
         }
@@ -104,22 +104,21 @@ class TextFormatter {
     public void format_block_alligned( int maxLineLength ) {        
         output.clear();
         int curIndex = 0;
-        while (curIndex < input.length()) {
-            String curLine = getNextLine(curIndex, maxLineLength);
-            int stopIndex = curIndex + curLine.lastIndexOf(' ');
+        while( curIndex < input.length() ) {
+            String curLine = getNextLine( curIndex, maxLineLength );
+            int stopIndex = curIndex + curLine.lastIndexOf( ' ' );
 
-            if (isLastLine(curIndex, maxLineLength)) {
+            if( isLastLine( curIndex, maxLineLength ) ) {
                 stopIndex = input.length();
             }
             
-            StringBuffer curStr = new StringBuffer(input.substring(curIndex, stopIndex));
+            StringBuffer curStr = new StringBuffer( input.substring(curIndex, stopIndex ) );
             int blankSpace = maxLineLength - ( stopIndex - curIndex );
-            int numBlanks = countNumberOfBlanks( curStr );
             
             if( ! isLastLine( curIndex, maxLineLength ) ) {
                 while( blankSpace > 0 ) {
                     int blankIndex = curStr.indexOf( " " ); 
-                    while( blankIndex < curStr.length() && curStr.charAt( blankIndex+1) == ' ') {
+                    while( blankIndex < curStr.length() && curStr.charAt( blankIndex +1 ) == ' ') {
                         blankIndex++;
                     }
                     while( blankIndex != -1 && blankSpace > 0 ) {
@@ -135,31 +134,21 @@ class TextFormatter {
     }
 
     public void print() {
-        for(StringBuffer curStr : output ) {
+        for( StringBuffer curStr : output ) {
             System.out.println( curStr );
         }
     }
 
-    private boolean isLastLine(int curIndex, int maxLineLength) {
-        return (input.length() - curIndex) < maxLineLength;
+    private boolean isLastLine( int curIndex, int maxLineLength ) {
+        return ( input.length() - curIndex ) < maxLineLength;
     }
 
-    private String getNextLine(int startIndex, int maxLineLength) {
+    private String getNextLine( int startIndex, int maxLineLength ) {
         int stopIndex = startIndex + maxLineLength;
-        if (stopIndex >= input.length()) {
+        if( stopIndex >= input.length() ) {
             stopIndex = input.length() - 1;
         }
-        return input.substring(startIndex, stopIndex);
-    }
-
-    private int countNumberOfBlanks( StringBuffer text ) {
-        int numBlanks = 0;
-        for( int curIndex = 0; curIndex < text.length(); curIndex++ ) {
-            if(text.charAt(curIndex) == ' ') {
-                numBlanks++;
-            }
-        }
-        return numBlanks;
+        return input.substring( startIndex, stopIndex );
     }
 
     private String input;
