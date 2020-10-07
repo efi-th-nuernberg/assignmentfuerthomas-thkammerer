@@ -20,7 +20,7 @@ class Test {
         formatters.add( new BlockTextFormatter( "block alligend formatter", testText ) );
         for( TextFormatter curFormatter : formatters ) {
             System.out.println( "\n--- " + curFormatter.getName() );
-            System.out.println("123456789012345678901234567890123456789012345678901234567890");
+            System.out.println("123456789012345678901234567890");
             curFormatter.format(30);
             curFormatter.print( System.out );
         }
