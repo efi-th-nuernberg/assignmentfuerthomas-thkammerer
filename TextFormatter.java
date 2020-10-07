@@ -41,8 +41,8 @@ class TextFormatter implements Formatter {
         return input.substring(startIndex, stopIndex);
     }
 
-    protected int getIndexOfLastBlankInLine( String curLine, int curIndex, int lineLength ) {
-        int stopIndex = curIndex + curLine.lastIndexOf(' ');
+    protected int getIndexOfLastBlankInLine( String line, int curIndex, int lineLength ) {
+        int stopIndex = curIndex + line.lastIndexOf(' ');
         if (isLastLine(curIndex, lineLength)) {
             stopIndex = input.length();
         }
@@ -61,6 +61,16 @@ class TextFormatter implements Formatter {
         }
         curStr.append( line );
         return curStr.toString();
+    }
+
+    protected int getWordsInLine( String line ) {
+        int numWords = 1;
+        int curIndex = line.indexOf(' ', 0);
+        while (curIndex >= 0) {
+            numWords++;
+            curIndex = line.indexOf(' ', curIndex + 1);
+        }
+        return numWords;
     }
 
     private String name; 

@@ -13,7 +13,7 @@ class BlockTextFormatter extends TextFormatter {
             int stopIndex = getIndexOfLastBlankInLine( curLine, curIndex, lineLength );
             curLine = input.substring(curIndex, stopIndex);
 
-            if( ! isLastLine( curIndex, lineLength ) ) {
+            if( ! isLastLine( curIndex, lineLength ) && getWordsInLine( curLine ) > 1 ) {
                 int blanksToInsert = lineLength - ( stopIndex - curIndex );
                 curLine = insertBlanks( curLine, blanksToInsert );
             }

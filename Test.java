@@ -13,15 +13,22 @@ class Test {
 
 
     public static void main(String[] args) {
+
+        int lineLength = 15;
         ArrayList<TextFormatter> formatters = new ArrayList<>();
         formatters.add( new LeftTextFormatter( "left alligend formatter", testText ) );
         formatters.add( new RightTextFormatter( "right alligend formatter", testText ) );
         formatters.add( new CenterTextFormatter( "center alligend formatter", testText ) );
         formatters.add( new BlockTextFormatter( "block alligend formatter", testText ) );
+        
         for( TextFormatter curFormatter : formatters ) {
             System.out.println( "\n--- " + curFormatter.getName() );
-            System.out.println("123456789012345678901234567890");
-            curFormatter.format(30);
+            
+            for( int i = 1; i <= lineLength; i++ ) {
+                System.out.print( i % 10 );
+            }
+            System.out.println();
+            curFormatter.format( lineLength );
             curFormatter.print( System.out );
         }
     }
