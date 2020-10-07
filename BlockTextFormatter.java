@@ -10,42 +10,33 @@ class BlockTextFormatter extends TextFormatter {
         int curIndex = 0;
         while (curIndex < input.length()) {
             String curLine = getNextLine(curIndex, lineLength);
-            int stopIndex = curIndex + curLine.lastIndexOf(' ');
+            int stopIndex = getIndexOfLastBlankInLine( curLine, curIndex, lineLength );
+            curLine = input.substring(curIndex, stopIndex);
 
-            if (isLastLine(curIndex, lineLength)) {
-                stopIndex = input.length();
-            }
-            
-            StringBuffer curStr = new StringBuffer(input.substring(curIndex, stopIndex));
-            int blankSpace = lineLength - ( stopIndex - curIndex );
-            int numBlanks = countNumberOfBlanks( curStr );
-            
             if( ! isLastLine( curIndex, lineLength ) ) {
-                while( blankSpace > 0 ) {
-                    int blankIndex = curStr.indexOf( " " ); 
-                    while( blankIndex < curStr.length() && curStr.charAt( blankIndex+1) == ' ') {
-                        blankIndex++;
-                    }
-                    while( blankIndex != -1 && blankSpace > 0 ) {
-                        curStr.insert( blankIndex, " " );
-                        blankSpace--;
-                        blankIndex = curStr.indexOf( " ", blankIndex+2 );
-                    }
-                }
-            }    
+                int blanksToInsert = lineLength - ( stopIndex - curIndex );
+                curLine = insertBlanks( curLine, blanksToInsert );
+            }
                                 
-            output.add( curStr );
+            output.add( curLine );
             curIndex = stopIndex + 1;
         }
     }
 
-    private int countNumberOfBlanks( StringBuffer text ) {
-        int numBlanks = 0;
-        for( int curIndex = 0; curIndex < text.length(); curIndex++ ) {
-            if(text.charAt(curIndex) == ' ') {
-                numBlanks++;
+    private String insertBlanks( String line, int blanksToInsert ) {
+        StringBuffer curStr = new StringBuffer( line );                   
+        
+        while( blanksToInsert > 0 ) {
+            int blankIndex = curStr.indexOf( " " ); 
+            while( blankIndex < curStr.length() && curStr.charAt( blankIndex+1) == ' ') {
+                blankIndex++;
+            }
+            while( blankIndex != -1 && blanksToInsert > 0 ) {
+                curStr.insert( blankIndex, " " );
+                blanksToInsert--;
+                blankIndex = curStr.indexOf( " ", blankIndex+2 );
             }
         }
-        return numBlanks;
+        return curStr.toString();    
     }
 }

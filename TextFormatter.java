@@ -15,22 +15,30 @@ class TextFormatter implements Formatter {
     }
 
     public void format(int lineLength) {
-        output.add( new StringBuffer( input ) );
+        output.add( input );
     }
 
     public void print(PrintStream outputStream) {
-        for (StringBuffer curStr : output) {
+        for (String curStr : output) {
             outputStream.println(curStr);
         }
     }
 
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        for (StringBuffer curStr : output) {
+        for (String curStr : output) {
             builder.append(output);
             builder.append('\n');
         }
         return builder.toString();
+    }
+
+    protected int getIndexOfLastBlankInLine( String curLine, int curIndex, int lineLength ) {
+        int stopIndex = curIndex + curLine.lastIndexOf(' ');
+        if (isLastLine(curIndex, lineLength)) {
+            stopIndex = input.length();
+        }
+        return stopIndex;
     }
 
     protected boolean isLastLine(int curIndex, int lineLength) {
@@ -45,8 +53,18 @@ class TextFormatter implements Formatter {
         return input.substring(startIndex, stopIndex);
     }
 
+    protected String insertBlanksInFront( String line, int blanksToInsert ) {
+        StringBuffer curStr = new StringBuffer();
+        while( blanksToInsert > 0 ) {
+            curStr.append(' ');
+            blanksToInsert--;
+        }
+        curStr.append( line );
+        return curStr.toString();
+    }
+
     private String name; 
     protected Formatter formatter;
     protected String input;
-    protected ArrayList<StringBuffer> output;
+    protected ArrayList<String> output;
 }

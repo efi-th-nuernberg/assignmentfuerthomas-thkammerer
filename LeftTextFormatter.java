@@ -10,13 +10,9 @@ class LeftTextFormatter extends TextFormatter {
         int curIndex = 0;
         while (curIndex < input.length()) {
             String curLine = getNextLine(curIndex, lineLength);
-            int stopIndex = curIndex + curLine.lastIndexOf(' ');
-
-            if (isLastLine(curIndex, lineLength)) {
-                stopIndex = input.length();
-            }
-
-            output.add( new StringBuffer( input.substring(curIndex, stopIndex ) ) );
+            int stopIndex = getIndexOfLastBlankInLine( curLine, curIndex, lineLength );
+            curLine = input.substring(curIndex, stopIndex);
+            output.add( curLine );
             curIndex = stopIndex + 1;
         }
     }
