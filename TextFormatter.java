@@ -33,6 +33,14 @@ class TextFormatter implements Formatter {
         return builder.toString();
     }
 
+    protected String getNextLine(int startIndex, int lineLength) {
+        int stopIndex = startIndex + lineLength;
+        if (stopIndex >= input.length()) {
+            stopIndex = input.length() - 1;
+        }
+        return input.substring(startIndex, stopIndex);
+    }
+
     protected int getIndexOfLastBlankInLine( String curLine, int curIndex, int lineLength ) {
         int stopIndex = curIndex + curLine.lastIndexOf(' ');
         if (isLastLine(curIndex, lineLength)) {
@@ -45,15 +53,7 @@ class TextFormatter implements Formatter {
         return (input.length() - curIndex) < lineLength;
     }
 
-    protected String getNextLine(int startIndex, int lineLength) {
-        int stopIndex = startIndex + lineLength;
-        if (stopIndex >= input.length()) {
-            stopIndex = input.length() - 1;
-        }
-        return input.substring(startIndex, stopIndex);
-    }
-
-    protected String insertBlanksInFront( String line, int blanksToInsert ) {
+    protected String insertBlanks( String line, int blanksToInsert ) {
         StringBuffer curStr = new StringBuffer();
         while( blanksToInsert > 0 ) {
             curStr.append(' ');

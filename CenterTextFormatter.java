@@ -14,7 +14,7 @@ class CenterTextFormatter extends TextFormatter {
             curLine = input.substring(curIndex, stopIndex);
             
             int blanksToInsert = lineLength / 2 - ( stopIndex - curIndex ) / 2;
-            curLine = insertBlanksInFront( curLine, blanksToInsert );
+            curLine = insertBlanks( curLine, blanksToInsert );
             output.add( curLine );
             curIndex = stopIndex + 1;
         }

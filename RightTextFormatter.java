@@ -13,9 +13,9 @@ class RightTextFormatter extends TextFormatter{
             String curLine = getNextLine(curIndex, lineLength);
             int stopIndex = getIndexOfLastBlankInLine( curLine, curIndex, lineLength );            
             curLine = input.substring(curIndex, stopIndex);
-
+            
             int blanksToInsert = lineLength - ( stopIndex - curIndex );
-            curLine = insertBlanksInFront( curLine, blanksToInsert );        
+            curLine = insertBlanks( curLine, blanksToInsert );        
             output.add( curLine );
             curIndex = stopIndex + 1;
         }

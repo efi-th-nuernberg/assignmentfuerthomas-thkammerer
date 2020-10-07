@@ -23,7 +23,7 @@ class BlockTextFormatter extends TextFormatter {
         }
     }
 
-    private String insertBlanks( String line, int blanksToInsert ) {
+    protected String insertBlanks( String line, int blanksToInsert ) {
         StringBuffer curStr = new StringBuffer( line );                   
         
         while( blanksToInsert > 0 ) {
