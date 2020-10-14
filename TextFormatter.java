@@ -1,26 +1,80 @@
-class TextFormatter {
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 
-  private static final String text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy " +
-          "eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et " +
-          "accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem " +
-          "ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod " +
-          "tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et " +
-          "justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est " +
-          "Lorem ipsum dolor sit amet.";
+class TextFormatter implements Formatter {
 
-  public static void main(String[] args) {
-    TextFormatter formatter = new TextFormatter(30);
-    formatter.print(text);
-  }
+    TextFormatter(String name, String input) {
+        this.name = name;
+        this.input = input;
+        this.output = new ArrayList<>();
+    }
 
-  // Konstruktor
-  public TextFormatter(int maxLineLength) {
-    // ...
-  }
+    public String getName() {
+        return name;
+    }
 
-  // Ausgabe
-  public void print(String aText) {
-    System.out.println("Hier sollte der Text mit passendem Umbruch erscheinen.");
-  }
+    public void format(int lineLength) {
+        output.add( input );
+    }
 
+    public void print(PrintStream outputStream) {
+        for (String curStr : output) {
+            outputStream.println(curStr);
+        }
+    }
+
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (String curStr : output) {
+            builder.append(output);
+            builder.append('\n');
+        }
+        return builder.toString();
+    }
+
+    protected String getNextLine(int startIndex, int lineLength) {
+        int stopIndex = startIndex + lineLength;
+        if (stopIndex >= input.length()) {
+            stopIndex = input.length() - 1;
+        }
+        return input.substring(startIndex, stopIndex);
+    }
+
+    protected int getIndexOfLastBlankInLine( String line, int curIndex, int lineLength ) {
+        int stopIndex = curIndex + line.lastIndexOf(' ');
+        if (isLastLine(curIndex, lineLength)) {
+            stopIndex = input.length();
+        }
+        return stopIndex;
+    }
+
+    protected boolean isLastLine(int curIndex, int lineLength) {
+        return (input.length() - curIndex) < lineLength;
+    }
+
+    protected String insertBlanks( String line, int blanksToInsert ) {
+        StringBuffer curStr = new StringBuffer();
+        while( blanksToInsert > 0 ) {
+            curStr.append(' ');
+            blanksToInsert--;
+        }
+        curStr.append( line );
+        return curStr.toString();
+    }
+
+    protected int getWordsInLine( String line ) {
+        int numWords = 1;
+        int curIndex = line.indexOf(' ', 0);
+        while (curIndex >= 0) {
+            numWords++;
+            curIndex = line.indexOf(' ', curIndex + 1);
+        }
+        return numWords;
+    }
+
+    private String name; 
+    protected Formatter formatter;
+    protected String input;
+    protected ArrayList<String> output;
 }
