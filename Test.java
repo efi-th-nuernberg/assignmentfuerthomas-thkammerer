@@ -14,7 +14,7 @@ class Test {
 
     public static void main(String[] args) {
 
-        int lineLength = 15;
+        int lineLength = 25;
         ArrayList<TextFormatter> formatters = new ArrayList<>();
         formatters.add( new LeftTextFormatter( "left alligend formatter", testText ) );
         formatters.add( new RightTextFormatter( "right alligend formatter", testText ) );
